@@ -18,7 +18,7 @@ public MakeNewThreads (Semaphore semaphore) {
             semaphore.acquire();
             System.out.println(Thread.currentThread().getName()  + " gets a permit.");
             for(int count=0;count<10;count++) {
-                System.out.println("count number is : " + Shared.number + " " + Thread.currentThread().getName() + " available permit is: " + semaphore.getQueueLength());
+                System.out.println("count number is : " + Shared.number + " " + Thread.currentThread().getName() + " semaphore queue length is: " + semaphore.getQueueLength());
                 Shared.number++;
 //                Thread.sleep(10);
             }
