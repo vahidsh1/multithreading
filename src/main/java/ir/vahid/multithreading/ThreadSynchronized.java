@@ -3,9 +3,10 @@ package ir.vahid.multithreading;
 public class ThreadSynchronized extends Thread {
     Sender sender;
     private String msg;
-    ThreadSynchronized(String msg, Sender sender){
-        this.msg=msg;
-        this.sender=sender;
+
+    ThreadSynchronized(String msg, Sender sender) {
+        this.msg = msg;
+        this.sender = sender;
     }
 
     @Override
@@ -20,21 +21,29 @@ public class ThreadSynchronized extends Thread {
 
     }
 }
-class Sender{
-    public void send (String msg) throws InterruptedException {
-        System.out.println("Sending\t"+ msg);
+
+class Sender {
+    public void send(String msg) throws InterruptedException {
+        System.out.println("Sending\t" + msg);
         Thread.sleep(1000);
         System.out.println("\n" + msg + " Sent ");
     }
 }
+
 class SyncDemo {
     public static void main(String[] args) {
         Sender sender = new Sender();
-        Thread t1= new ThreadSynchronized("Hi",sender);
-        Thread t2= new ThreadSynchronized("End",sender);
+        Thread t1 = new ThreadSynchronized("Hi", sender);
+        Thread t2 = new ThreadSynchronized("End", sender);
         // Start two threads of ThreadedSend type
         t1.start();
         t2.start();
-
+        // wait for threads to end
+        try {
+            t1.join();
+            t2.join();
+        } catch (Exception e) {
+            System.out.println("Interrupted");
+        }
     }
 }
